@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Snake
 {
@@ -11,7 +12,7 @@ namespace Snake
         public Coordinate FruitCoordinate { get; set; }
         public Fruit()
         {
-            Random rnd = new Random();
+            var rnd = new Random();
             var x = rnd.Next(1,20);
             var y = rnd.Next(1, 20);
             FruitCoordinate = new Coordinate(x, y);

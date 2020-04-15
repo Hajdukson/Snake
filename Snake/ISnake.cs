@@ -9,6 +9,6 @@ namespace Snake
     interface ISnake
     {
         void Move();
-        void EatMeal();
+        void EatFruit();
     }
 }
