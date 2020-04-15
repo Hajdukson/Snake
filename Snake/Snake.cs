@@ -8,9 +8,9 @@ namespace Snake
 {
     class Snake : ISnake
     {
-        public int Length { get; set; } = 5;
+        public int Length { get; private set; } = 5;
         public Direction Direction { get; set; } = Direction.Right;
-        public Coordinate HeadPosition { get; set; } = new Coordinate();
+        public Coordinate HeadPosition { get; private set; } = new Coordinate();
         public List<Coordinate> Tail { get; private set; } = new List<Coordinate>();
         private bool outOfRange = false;
 
@@ -48,7 +48,7 @@ namespace Snake
             { 
                 Console.SetCursorPosition(HeadPosition.X, HeadPosition.Y);
                 Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.Write("O");
+                Console.Write("@");
                 Tail.Add(new Coordinate(HeadPosition.X, HeadPosition.Y));
                 if(Tail.Count > Length)
                 {
