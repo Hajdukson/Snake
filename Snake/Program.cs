@@ -12,20 +12,14 @@ namespace Snake
         static Game _game;
         static void Main(string[] args)
         {
+            Console.CursorVisible = false;
             Console.SetWindowSize(120,30);
             Console.SetBufferSize(120, 30);
-            Console.CursorVisible = false;
-            List<string> MenuItem = new List<string>(){
-                "START THE GAME",
-                "SHOW RECORDS",
-                "INSTRUCTIONS",
-                "EXIT",
-            };
 
             while (true)
             {
                 Console.Clear();
-                string selectedItem = DrawMenu(MenuItem);
+                string selectedItem = DrawMenu();
                 if (selectedItem == "START THE GAME")
                 {
                     Console.Clear();
@@ -42,53 +36,79 @@ namespace Snake
                     Environment.Exit(0);
             }
         }
+        static List<string> MenuItem = new List<string>(){
+                "START THE GAME",
+                "SHOW RECORDS",
+                "INSTRUCTIONS",
+                "EXIT",
+            };
 
         static int _index = 0;
-        private static string DrawMenu(List<string> items)
+        static string[] _logo = new string[] {
+                                         @".-- -.         .       ,---.               ",
+                                         @" \___  ,-. ,-. | , ,-. |  -'  ,-. ,-,-. ,-.",
+                                         @"     \ | | ,-| |<  |-' |  ,-' ,-| | | | |-'",
+                                         @" `---' ' ' `-^ ' ` `-' `---|  `-^ ' ' ' `-'",
+                                         @"                        ,-.|               ",
+                                         @"                        `-+'               "
+                                         };
+        static string DrawMenu()
         {
-            
+            string choose = null;
+
             Console.ForegroundColor = ConsoleColor.White;
+
+            foreach (var line in _logo)
+            {
+                Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
+                Console.WriteLine(line);
+            }
+           
             string[] instruction = { "USE UP AND DOWN ARROW",
-                                    "TO MOVE ABOVE THE MENU!"};
-            Console.SetCursorPosition((Console.WindowWidth - instruction.Length - 20) / 2, Console.CursorTop);
+                                    "TO MOVE ABOVE THE MENU!",
+                                    "DO NOT CHANGE THE WINDOW SIZE!"};
+            Console.SetCursorPosition((Console.WindowWidth - instruction[0].Length) / 2, Console.CursorTop);
             Console.WriteLine(instruction[0]);
             Console.SetCursorPosition((Console.WindowWidth - instruction[1].Length) / 2, Console.CursorTop);
             Console.WriteLine(instruction[1]);
+            Console.SetCursorPosition((Console.WindowWidth - instruction[2].Length) / 2, Console.CursorTop);
+            Console.WriteLine(instruction[2]);
 
             Console.WriteLine();
-            for (int i = 0; i < items.Count; i++)
+
+            for (int i = 0; i < MenuItem.Count; i++)
             {
                 if (i == _index)
                 {
-                    Console.SetCursorPosition((Console.WindowWidth - items[i].Length - 4) / 2, Console.CursorTop);
-                    Console.Write(">   ");
                     Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.SetCursorPosition((Console.WindowWidth - MenuItem[i].Length - 4) / 2, Console.CursorTop);
+                    Console.Write(">   ");
                 }
                 else
                 {
                     Console.ResetColor();
                 }
-                Console.SetCursorPosition((Console.WindowWidth - items[i].Length) / 2, Console.CursorTop);
-                Console.WriteLine(items[i]);
+                Console.SetCursorPosition((Console.WindowWidth - MenuItem[i].Length) / 2, Console.CursorTop);
+                Console.WriteLine(MenuItem[i]);
+                
             }
+
+            if (SetIndex())
+                choose = MenuItem[_index];
+
+            return choose;
+        }
+        static bool SetIndex()
+        {
             ConsoleKeyInfo key = Console.ReadKey();
 
             if (key.Key == ConsoleKey.DownArrow) _index++;
             else if (key.Key == ConsoleKey.UpArrow) _index--;
-            else if (key.Key == ConsoleKey.Enter) return items[_index];
 
-            if (_index == items.Count)
-            {
-                Console.BackgroundColor = ConsoleColor.Black;
-                _index = 0;
-            }
-            else if (_index < 0)
-            { 
-                Console.BackgroundColor = ConsoleColor.Black;
-                _index = items.Count - 1;
-            }
+            if (_index == MenuItem.Count) _index = 0;
+            else if (_index < 0) _index = MenuItem.Count - 1;
 
-            return "";
+            return (key.Key == ConsoleKey.Enter);
         }
     }
 }
