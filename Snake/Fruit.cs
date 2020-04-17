@@ -9,7 +9,7 @@ namespace Snake
 {
     class Fruit
     {
-        public Coordinate FruitCoordinate { get; set; }
+        public Coordinate FruitCoordinate { get; private set; }
         public Fruit()
         {
             var rnd = new Random();

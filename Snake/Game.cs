@@ -9,11 +9,12 @@ namespace Snake
 {
     class Game
     {
-        Fruit fruit = new Fruit();
+        Fruit fruit;
         Snake snake = new Snake();
         bool Exit = false;
         public Game()
         {
+            fruit = new Fruit();
             StartGame();
         }
         private void StartGame()
@@ -51,7 +52,7 @@ namespace Snake
                 {
                     snake.EatFruit();
                     fruit = new Fruit();
-                    
+
                     frame += 1;
                 }
                 
@@ -62,48 +63,31 @@ namespace Snake
             }
 
         }
+        //private bool FruitRespOnSnakeTail(Fruit fruit)
+        //{
+        //    foreach(Coordinate tailElement in snake.Tail)
+        //    {
+        //        if (tailElement.X == fruit.FruitCoordinate.X && tailElement.Y == fruit.FruitCoordinate.X)
+        //            return true;
+        //    }
+        //    return false;
+        //}
 
         private void IfGameIsOver()
         {
             Console.Clear();
-            string info = $"YOUR SCORE: {snake.Length - 5}. PRESS ANY KEY TO CONTIUNUE.";
-            string[] gameOver = {"────────────────────────────────────────────────────────────────────────────────────",
-
-                                 "─██████──────────██████─██████████████─██████████████─██████████████─████████████───",
-
-                                 "─██░░██──────────██░░██─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░░░████─",
-
-                                 "─██░░██──────────██░░██─██░░██████████─██████░░██████─██░░██████████─██░░████░░░░██─",
-
-                                 "─██░░██──────────██░░██─██░░██─────────────██░░██─────██░░██─────────██░░██──██░░██─",
-
-                                 "─██░░██──██████──██░░██─██░░██████████─────██░░██─────██░░██████████─██░░██──██░░██─",
-
-                                 "─██░░██──██░░██──██░░██─██░░░░░░░░░░██─────██░░██─────██░░░░░░░░░░██─██░░██──██░░██─",
-
-                                 "─██░░██──██░░██──██░░██─██████████░░██─────██░░██─────██░░██████████─██░░██──██░░██─",
-
-                                 "─██░░██████░░██████░░██─────────██░░██─────██░░██─────██░░██─────────██░░██──██░░██─",
-
-                                 "─██░░░░░░░░░░░░░░░░░░██─██████████░░██─────██░░██─────██░░██████████─██░░████░░░░██─",
-
-                                 "─██░░██████░░██████░░██─██░░░░░░░░░░██─────██░░██─────██░░░░░░░░░░██─██░░░░░░░░████─",
-
-                                 "─██████──██████──██████─██████████████─────██████─────██████████████─████████████───",
-
-                                 "────────────────────────────────────────────────────────────────────────────────────" };
+            string info = $"YOUR SCORE: {snake.Length - 5}. PRESS ENTER TO CONTIUNUE.";
             Console.SetCursorPosition((Console.WindowWidth - info.Length) / 2, Console.CursorTop);
             Console.WriteLine(info);
 
-            for (int i = 0; i < gameOver.Length; i++)
+            foreach (var gameOverGraffitiElement in Graffiti.GameOver)
             {
-                Console.SetCursorPosition((Console.WindowWidth - gameOver[i].Length) / 2, Console.CursorTop);
-                Console.WriteLine(gameOver[i]);
+                Console.SetCursorPosition((Console.WindowWidth - gameOverGraffitiElement.Length) / 2, Console.CursorTop);
+                Console.WriteLine(gameOverGraffitiElement);
             }
 
-
             Exit = true;
-            Console.ReadKey();
+            Console.ReadLine();
             Console.Clear();
         }
     }

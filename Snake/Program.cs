@@ -36,7 +36,7 @@ namespace Snake
                     Environment.Exit(0);
             }
         }
-        static List<string> MenuItem = new List<string>(){
+        static List<string> MenuItems = new List<string>(){
                 "START THE GAME",
                 "SHOW RECORDS",
                 "INSTRUCTIONS",
@@ -44,21 +44,13 @@ namespace Snake
             };
 
         static int _index = 0;
-        static string[] _logo = new string[] {
-                                         @".-- -.         .       ,---.               ",
-                                         @" \___  ,-. ,-. | , ,-. |  -'  ,-. ,-,-. ,-.",
-                                         @"     \ | | ,-| |<  |-' |  ,-' ,-| | | | |-'",
-                                         @" `---' ' ' `-^ ' ` `-' `---|  `-^ ' ' ' `-'",
-                                         @"                        ,-.|               ",
-                                         @"                        `-+'               "
-                                         };
         static string DrawMenu()
         {
             string choose = null;
 
             Console.ForegroundColor = ConsoleColor.White;
 
-            foreach (var line in _logo)
+            foreach (var line in Graffiti.Logo)
             {
                 Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
                 Console.WriteLine(line);
@@ -76,25 +68,25 @@ namespace Snake
 
             Console.WriteLine();
 
-            for (int i = 0; i < MenuItem.Count; i++)
+            for (int i = 0; i < MenuItems.Count; i++)
             {
                 if (i == _index)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.SetCursorPosition((Console.WindowWidth - MenuItem[i].Length - 4) / 2, Console.CursorTop);
-                    Console.Write(">   ");
+                    Console.SetCursorPosition((Console.WindowWidth - MenuItems[i].Length - 3) / 2, Console.CursorTop);
+                    Console.Write(">");
                 }
                 else
                 {
                     Console.ResetColor();
                 }
-                Console.SetCursorPosition((Console.WindowWidth - MenuItem[i].Length) / 2, Console.CursorTop);
-                Console.WriteLine(MenuItem[i]);
+                Console.SetCursorPosition((Console.WindowWidth - MenuItems[i].Length) / 2, Console.CursorTop);
+                Console.WriteLine(MenuItems[i]);
                 
             }
 
             if (SetIndex())
-                choose = MenuItem[_index];
+                choose = MenuItems[_index];
 
             return choose;
         }
@@ -105,8 +97,8 @@ namespace Snake
             if (key.Key == ConsoleKey.DownArrow) _index++;
             else if (key.Key == ConsoleKey.UpArrow) _index--;
 
-            if (_index == MenuItem.Count) _index = 0;
-            else if (_index < 0) _index = MenuItem.Count - 1;
+            if (_index > MenuItems.Count - 1) _index = 0;
+            else if (_index < 0) _index = MenuItems.Count - 1;
 
             return (key.Key == ConsoleKey.Enter);
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Snake
 {
-    interface ISnake
+    public interface ISnake
     {
         void Move();
         void EatFruit();
