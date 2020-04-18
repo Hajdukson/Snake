@@ -9,7 +9,7 @@ namespace Snake
 {
     class Program
     {
-        static Game _game;
+        /////////////////////////////////////////////////////////////////////////////
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
@@ -19,11 +19,12 @@ namespace Snake
             while (true)
             {
                 Console.Clear();
-                string selectedItem = DrawMenu();
+                DrawMenu();
+                string selectedItem = SelectMenuItem();
                 if (selectedItem == "START THE GAME")
                 {
                     Console.Clear();
-                    _game = new Game();
+                    Game game = new Game();
                 }
                 else if (selectedItem == "INSTRUCTIONS")
                 {
@@ -36,6 +37,9 @@ namespace Snake
                     Environment.Exit(0);
             }
         }
+
+        /////////////////////////////////////////////////////////////////////////////
+
         static List<string> MenuItems = new List<string>(){
                 "START THE GAME",
                 "SHOW RECORDS",
@@ -44,10 +48,8 @@ namespace Snake
             };
 
         static int _index = 0;
-        static string DrawMenu()
+        static void DrawMenu()
         {
-            string choose = null;
-
             Console.ForegroundColor = ConsoleColor.White;
 
             foreach (var line in Graffiti.Logo)
@@ -56,18 +58,20 @@ namespace Snake
                 Console.WriteLine(line);
             }
            
-            string[] instruction = { "USE UP AND DOWN ARROW",
+            string[] instruction = { "USE UP AND DOWN ARROWS",
                                     "TO MOVE ABOVE THE MENU!",
                                     "DO NOT CHANGE THE WINDOW SIZE!"};
-            Console.SetCursorPosition((Console.WindowWidth - instruction[0].Length) / 2, Console.CursorTop);
-            Console.WriteLine(instruction[0]);
-            Console.SetCursorPosition((Console.WindowWidth - instruction[1].Length) / 2, Console.CursorTop);
-            Console.WriteLine(instruction[1]);
-            Console.SetCursorPosition((Console.WindowWidth - instruction[2].Length) / 2, Console.CursorTop);
-            Console.WriteLine(instruction[2]);
+            foreach (var line in instruction)
+            {
+                Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
+                Console.WriteLine(line);
+            }
 
             Console.WriteLine();
-
+        }
+        static string SelectMenuItem()
+        {
+            string choose = null;
             for (int i = 0; i < MenuItems.Count; i++)
             {
                 if (i == _index)
@@ -82,7 +86,6 @@ namespace Snake
                 }
                 Console.SetCursorPosition((Console.WindowWidth - MenuItems[i].Length) / 2, Console.CursorTop);
                 Console.WriteLine(MenuItems[i]);
-                
             }
 
             if (SetIndex())
@@ -100,7 +103,7 @@ namespace Snake
             if (_index > MenuItems.Count - 1) _index = 0;
             else if (_index < 0) _index = MenuItems.Count - 1;
 
-            return (key.Key == ConsoleKey.Enter);
+            return key.Key == ConsoleKey.Enter;
         }
     }
 }

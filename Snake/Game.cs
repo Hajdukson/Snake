@@ -12,8 +12,18 @@ namespace Snake
         Fruit fruit;
         Snake snake = new Snake();
         bool Exit = false;
+        private bool outOfRange = false;
+        public bool GameOver
+        {
+            get
+            {
+                return (snake.Tail.Where(c => c.X == snake.HeadPosition.X
+                && c.Y == snake.HeadPosition.Y).ToList().Count > 1) || outOfRange;
+            }
+        }
         public Game()
         {
+            Board board = new Board();
             fruit = new Fruit();
             StartGame();
         }
@@ -26,27 +36,30 @@ namespace Snake
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo input = Console.ReadKey();
-
-                    switch (input.Key)
-                    {
-                        case ConsoleKey.Escape:
-                            IfGameIsOver();
-                            continue;
-                        case ConsoleKey.LeftArrow:
-                            snake.Direction = Direction.Left;
-                            break;
-                        case ConsoleKey.RightArrow:
-                            snake.Direction = Direction.Right;
-                            break;
-                        case ConsoleKey.UpArrow:
-                            snake.Direction = Direction.Up;
-                            break;
-                        case ConsoleKey.DownArrow:
-                            snake.Direction = Direction.Down;
-                            break;
-                    }
+                    if (input.Key != ConsoleKey.Escape)
+                        Control(input);
+                    else
+                        IfGameIsOver();
                 }
                 snake.Move();
+                try
+                {
+                    Console.SetCursorPosition(snake.HeadPosition.X, snake.HeadPosition.Y);
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write("@");
+                    snake.Tail.Add(new Coordinate(snake.HeadPosition.X, snake.HeadPosition.Y));
+                    if (snake.Tail.Count > snake.Length)
+                    {
+                        var endTail = snake.Tail.First();
+                        Console.SetCursorPosition(endTail.X, endTail.Y);
+                        Console.Write(" ");
+                        snake.Tail.Remove(endTail);
+                    }
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    outOfRange = true;
+                }
 
                 if (fruit.FruitCoordinate.X == snake.HeadPosition.X && fruit.FruitCoordinate.Y == snake.HeadPosition.Y)
                 {
@@ -56,7 +69,7 @@ namespace Snake
                     frame += 1;
                 }
                 
-                if (snake.GameOver == true)
+                if (GameOver == true)
                     IfGameIsOver();
 
                 Thread.Sleep(10000 / frame);
@@ -89,6 +102,24 @@ namespace Snake
             Exit = true;
             Console.ReadLine();
             Console.Clear();
+        }
+        private void Control(ConsoleKeyInfo input)
+        {
+            switch (input.Key)
+            {
+                case ConsoleKey.LeftArrow:
+                    snake.Direction = Direction.Left;
+                    break;
+                case ConsoleKey.RightArrow:
+                    snake.Direction = Direction.Right;
+                    break;
+                case ConsoleKey.UpArrow:
+                    snake.Direction = Direction.Up;
+                    break;
+                case ConsoleKey.DownArrow:
+                    snake.Direction = Direction.Down;
+                    break;
+            }
         }
     }
 
