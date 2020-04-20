@@ -10,7 +10,7 @@ namespace Snake
     {
         public int Length { get; private set; } = 5;
         public Direction Direction { get; set; } = Direction.Right;
-        public Coordinate HeadPosition { get; private set; } = new Coordinate();
+        public Coordinate HeadPosition { get; private set; } = new Coordinate(1,1);
         public List<Coordinate> Tail { get; private set; } = new List<Coordinate>();
         
         public void EatFruit()

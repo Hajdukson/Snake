@@ -9,22 +9,23 @@ namespace Snake
 {
     class Game
     {
-        Fruit fruit;
-        Snake snake = new Snake();
+        Fruit _fruit;
+        readonly Board _board;
+        Snake _snake = new Snake();
         bool Exit = false;
         private bool outOfRange = false;
         public bool GameOver
         {
             get
             {
-                return (snake.Tail.Where(c => c.X == snake.HeadPosition.X
-                && c.Y == snake.HeadPosition.Y).ToList().Count > 1) || outOfRange;
+                return (_snake.Tail.Where(c => c.X == _snake.HeadPosition.X
+                && c.Y == _snake.HeadPosition.Y).ToList().Count > 1) || outOfRange;
             }
         }
         public Game()
         {
-            Board board = new Board();
-            fruit = new Fruit();
+            _board = new Board();
+            _fruit = new Fruit();
             StartGame();
         }
         private void StartGame()
@@ -41,35 +42,36 @@ namespace Snake
                     else
                         IfGameIsOver();
                 }
-                snake.Move();
-                try
+                _snake.Move();
+
+                if (_snake.HeadPosition.X < Board.Width && _snake.HeadPosition.Y < Board.Height + 1 && 
+                    _snake.HeadPosition.X > 0 && _snake.HeadPosition.Y > 0)
                 {
-                    Console.SetCursorPosition(snake.HeadPosition.X, snake.HeadPosition.Y);
+                    Console.SetCursorPosition(_snake.HeadPosition.X, _snake.HeadPosition.Y);
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write("@");
-                    snake.Tail.Add(new Coordinate(snake.HeadPosition.X, snake.HeadPosition.Y));
-                    if (snake.Tail.Count > snake.Length)
+                    _snake.Tail.Add(new Coordinate(_snake.HeadPosition.X, _snake.HeadPosition.Y));
+                    if (_snake.Tail.Count > _snake.Length)
                     {
-                        var endTail = snake.Tail.First();
+                        var endTail = _snake.Tail.First();
                         Console.SetCursorPosition(endTail.X, endTail.Y);
                         Console.Write(" ");
-                        snake.Tail.Remove(endTail);
+                        _snake.Tail.Remove(endTail);
                     }
                 }
-                catch (ArgumentOutOfRangeException)
-                {
+                else
                     outOfRange = true;
-                }
-
-                if (fruit.FruitCoordinate.X == snake.HeadPosition.X && fruit.FruitCoordinate.Y == snake.HeadPosition.Y)
-                {
-                    snake.EatFruit();
-                    fruit = new Fruit();
-
-                    frame += 1;
-                }
                 
-                if (GameOver == true)
+
+                if (_fruit.FruitCoordinate.X == _snake.HeadPosition.X && _fruit.FruitCoordinate.Y == _snake.HeadPosition.Y)
+                {
+                    _snake.EatFruit();
+                    frame += 1;
+                    _fruit = new Fruit();
+                }
+ 
+                
+                if (GameOver == true || outOfRange == true)
                     IfGameIsOver();
 
                 Thread.Sleep(10000 / frame);
@@ -89,7 +91,7 @@ namespace Snake
         private void IfGameIsOver()
         {
             Console.Clear();
-            string info = $"YOUR SCORE: {snake.Length - 5}. PRESS ENTER TO CONTIUNUE.";
+            string info = $"YOUR SCORE: {_snake.Length - 5}. PRESS ENTER TO CONTIUNUE.";
             Console.SetCursorPosition((Console.WindowWidth - info.Length) / 2, Console.CursorTop);
             Console.WriteLine(info);
 
@@ -108,16 +110,16 @@ namespace Snake
             switch (input.Key)
             {
                 case ConsoleKey.LeftArrow:
-                    snake.Direction = Direction.Left;
+                    _snake.Direction = Direction.Left;
                     break;
                 case ConsoleKey.RightArrow:
-                    snake.Direction = Direction.Right;
+                    _snake.Direction = Direction.Right;
                     break;
                 case ConsoleKey.UpArrow:
-                    snake.Direction = Direction.Up;
+                    _snake.Direction = Direction.Up;
                     break;
                 case ConsoleKey.DownArrow:
-                    snake.Direction = Direction.Down;
+                    _snake.Direction = Direction.Down;
                     break;
             }
         }

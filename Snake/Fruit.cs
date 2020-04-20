@@ -13,8 +13,8 @@ namespace Snake
         public Fruit()
         {
             var rnd = new Random();
-            var x = rnd.Next(1,20);
-            var y = rnd.Next(1, 20);
+            var x = rnd.Next(1,Board.Width);
+            var y = rnd.Next(2, Board.Height);
             FruitCoordinate = new Coordinate(x, y);
             Draw();
         }

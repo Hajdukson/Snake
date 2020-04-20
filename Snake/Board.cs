@@ -8,26 +8,25 @@ namespace Snake
 {
     class Board
     {
+        public static int Width { get; private set; } = 100;
+        public static int Height { get; private set; } = Console.BufferHeight - 2;
         public Board()
         {
             DrawBoard();
         }
-        void DrawBoard()
+        private void DrawBoard()
         {
-            int szer = 110;
-            int wys = 25;
-
-            for(int i = 0; i <= szer; i++)
+            for (int i = 0; i <= Width; i++)
                 Console.Write("#");
-            Console.WriteLine();
-            for(int  i =0; i < wys; i++)
+            Console.Write("\n");
+            for (int i = 0; i < Height; i++)
             {
                 Console.Write("#");
-                for (int j = 0; j < szer - 1; j++)
+                for (int j = 0; j < Width - 1; j++)
                     Console.Write(" ");
-                Console.WriteLine("#");
+                Console.Write("#\n");
             }
-            for (int i = 0; i <= szer; i++)
+            for (int i = 0; i <= Width; i++)
                 Console.Write("#");
 
         }
