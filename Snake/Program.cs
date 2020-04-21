@@ -12,6 +12,7 @@ namespace Snake
         /////////////////////////////////////////////////////////////////////////////
         static void Main(string[] args)
         {
+            Console.Title = "Snake";
             Console.CursorVisible = false;
             Console.SetWindowSize(120,30);
             Console.SetBufferSize(120, 30);
@@ -21,19 +22,19 @@ namespace Snake
                 Console.Clear();
                 DrawMenu();
                 string selectedItem = SelectMenuItem();
-                if (selectedItem == "START THE GAME")
+                if (selectedItem == MenuItems.ElementAt(0))
                 {
                     Console.Clear();
                     Game game = new Game();
                 }
-                else if (selectedItem == "INSTRUCTIONS")
+                else if (selectedItem == MenuItems.ElementAt(2))
                 {
                     Console.Clear();
                     Console.WriteLine("THE SNAKE IS ... \n" +
                         "PRESS ANY KEY TO CONTINUE.");
                     Console.ReadKey();
                 }
-                else if (selectedItem == "EXIT")
+                else if (selectedItem == MenuItems.ElementAt(3))
                     Environment.Exit(0);
             }
         }

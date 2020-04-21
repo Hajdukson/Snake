@@ -10,11 +10,10 @@ namespace Snake
     class Game
     {
         Fruit _fruit;
-        readonly Board _board;
         Snake _snake = new Snake();
         bool Exit = false;
         private bool outOfRange = false;
-        public bool GameOver
+        private bool GameOver
         {
             get
             {
@@ -24,59 +23,45 @@ namespace Snake
         }
         public Game()
         {
-            _board = new Board();
+            Board.DrawBoard();
             _fruit = new Fruit();
             StartGame();
         }
         private void StartGame()
         {
             var frame = 40;
-            
+
             while (!Exit)
             {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(Console.BufferWidth - 14, 6);
+                Console.Write("POINTS: " + (_snake.Length - 5));
+
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo input = Console.ReadKey();
                     if (input.Key != ConsoleKey.Escape)
                         Control(input);
                     else
-                        IfGameIsOver();
+                        GameIsOver();
                 }
                 _snake.Move();
-
-                if (_snake.HeadPosition.X < Board.Width && _snake.HeadPosition.Y < Board.Height + 1 && 
-                    _snake.HeadPosition.X > 0 && _snake.HeadPosition.Y > 0)
-                {
-                    Console.SetCursorPosition(_snake.HeadPosition.X, _snake.HeadPosition.Y);
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.Write("@");
-                    _snake.Tail.Add(new Coordinate(_snake.HeadPosition.X, _snake.HeadPosition.Y));
-                    if (_snake.Tail.Count > _snake.Length)
-                    {
-                        var endTail = _snake.Tail.First();
-                        Console.SetCursorPosition(endTail.X, endTail.Y);
-                        Console.Write(" ");
-                        _snake.Tail.Remove(endTail);
-                    }
-                }
-                else
-                    outOfRange = true;
                 
+                if (SnakeHitTheWall())
+                    outOfRange = true;
 
                 if (_fruit.FruitCoordinate.X == _snake.HeadPosition.X && _fruit.FruitCoordinate.Y == _snake.HeadPosition.Y)
                 {
                     _snake.EatFruit();
-                    frame += 1;
+                    frame += 3;
                     _fruit = new Fruit();
                 }
- 
-                
-                if (GameOver == true || outOfRange == true)
-                    IfGameIsOver();
+
+                if (GameOver == true)
+                    GameIsOver();
 
                 Thread.Sleep(10000 / frame);
             }
-
         }
         //private bool FruitRespOnSnakeTail(Fruit fruit)
         //{
@@ -87,8 +72,29 @@ namespace Snake
         //    }
         //    return false;
         //}
+        private bool SnakeHitTheWall()
+        {
+            if (_snake.HeadPosition.X < Board.Width && _snake.HeadPosition.Y < Board.Height + 1 &&
+                _snake.HeadPosition.X > 0 && _snake.HeadPosition.Y > 0)
+            {
+                Console.SetCursorPosition(_snake.HeadPosition.X, _snake.HeadPosition.Y);
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write("@");
+                _snake.Tail.Add(new Coordinate(_snake.HeadPosition.X, _snake.HeadPosition.Y));
+                if (_snake.Tail.Count > _snake.Length)
+                {
+                    var endTail = _snake.Tail.First();
+                    Console.SetCursorPosition(endTail.X, endTail.Y);
+                    Console.Write(" ");
+                    _snake.Tail.Remove(endTail);
+                }
+            }
+            else
+                return true;
 
-        private void IfGameIsOver()
+            return false;
+        }
+        private void GameIsOver()
         {
             Console.Clear();
             string info = $"YOUR SCORE: {_snake.Length - 5}. PRESS ENTER TO CONTIUNUE.";
@@ -97,6 +103,7 @@ namespace Snake
 
             foreach (var gameOverGraffitiElement in Graffiti.GameOver)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.SetCursorPosition((Console.WindowWidth - gameOverGraffitiElement.Length) / 2, Console.CursorTop);
                 Console.WriteLine(gameOverGraffitiElement);
             }
