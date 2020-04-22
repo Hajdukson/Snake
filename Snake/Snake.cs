@@ -36,6 +36,20 @@ namespace Snake
                     break;
             }
         }
+        public void TailLogic()
+        {
+            Console.SetCursorPosition(HeadPosition.X, HeadPosition.Y);
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("@");
+            Tail.Add(new Coordinate(HeadPosition.X, HeadPosition.Y));
+            if (Tail.Count > Length)
+            {
+                var endTail = Tail.First();
+                Console.SetCursorPosition(endTail.X, endTail.Y);
+                Console.Write(" ");
+                Tail.Remove(endTail);
+            }
+        }
     }
     enum Direction { Left, Right, Up, Down}
 }

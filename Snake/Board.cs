@@ -36,8 +36,8 @@ namespace Snake
             Console.Write("USE ARROWS TO");
             Console.SetCursorPosition(Console.BufferWidth - 17, 11);
             Console.WriteLine("CHANGE DIRECTION");
-            Console.SetCursorPosition(Console.BufferWidth - 17, 12);
-            Console.WriteLine("OF THE SNAKE HEAD");
+            Console.SetCursorPosition(Console.BufferWidth - 15, 12);
+            Console.WriteLine("OF MOVEMENT");
             for (int i = 0; i < Graffiti.Control.Length; i++)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;

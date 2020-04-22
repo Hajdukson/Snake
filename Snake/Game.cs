@@ -21,13 +21,13 @@ namespace Snake
                 && c.Y == _snake.HeadPosition.Y).ToList().Count > 1) || outOfRange;
             }
         }
-        public Game()
+        public Game(string mode)
         {
             Board.DrawBoard();
             _fruit = new Fruit();
-            StartGame();
+            StartGame(mode);
         }
-        private void StartGame()
+        private void StartGame(string mode)
         {
             var frame = 40;
 
@@ -46,9 +46,14 @@ namespace Snake
                         GameIsOver();
                 }
                 _snake.Move();
-                
-                if (SnakeHitTheWall())
-                    outOfRange = true;
+
+                if (mode == "GAME OVER WHEN SNAKE HIT THE WALL.")
+                {
+                    if (SnakeHitWallDie())
+                        outOfRange = true;
+                }
+                else
+                    SnakeHitWallAppearOpposite();
 
                 if (_fruit.FruitCoordinate.X == _snake.HeadPosition.X && _fruit.FruitCoordinate.Y == _snake.HeadPosition.Y)
                 {
@@ -72,27 +77,31 @@ namespace Snake
         //    }
         //    return false;
         //}
-        private bool SnakeHitTheWall()
+        private bool SnakeHitWallDie()
         {
             if (_snake.HeadPosition.X < Board.Width && _snake.HeadPosition.Y < Board.Height + 1 &&
                 _snake.HeadPosition.X > 0 && _snake.HeadPosition.Y > 0)
-            {
-                Console.SetCursorPosition(_snake.HeadPosition.X, _snake.HeadPosition.Y);
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.Write("@");
-                _snake.Tail.Add(new Coordinate(_snake.HeadPosition.X, _snake.HeadPosition.Y));
-                if (_snake.Tail.Count > _snake.Length)
-                {
-                    var endTail = _snake.Tail.First();
-                    Console.SetCursorPosition(endTail.X, endTail.Y);
-                    Console.Write(" ");
-                    _snake.Tail.Remove(endTail);
-                }
+            { 
+                    _snake.TailLogic();
             }
             else
                 return true;
 
             return false;
+        }
+        private void SnakeHitWallAppearOpposite()
+        {
+            if (_snake.HeadPosition.X == Board.Width)
+                _snake.HeadPosition.X = 1;
+            if (_snake.HeadPosition.X == 0)
+                _snake.HeadPosition.X = Board.Width - 1;
+            if(_snake.HeadPosition.Y == Board.Height + 1)
+                _snake.HeadPosition.Y = 1;
+            if (_snake.HeadPosition.Y == 0)
+                _snake.HeadPosition.Y = Board.Height;
+
+            _snake.TailLogic();
+
         }
         private void GameIsOver()
         {
@@ -110,8 +119,8 @@ namespace Snake
 
             Exit = true;
             Console.ReadLine();
-            Console.Clear();
         }
+
         private void Control(ConsoleKeyInfo input)
         {
             switch (input.Key)

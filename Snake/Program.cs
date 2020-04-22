@@ -16,22 +16,32 @@ namespace Snake
             Console.CursorVisible = false;
             Console.SetWindowSize(120,30);
             Console.SetBufferSize(120, 30);
-
+            Console.WriteLine(MenuItems.ElementAt(1));
             while (true)
             {
+                
                 Console.Clear();
                 DrawMenu();
                 string selectedItem = SelectMenuItem();
                 if (selectedItem == MenuItems.ElementAt(0))
                 {
                     Console.Clear();
-                    Game game = new Game();
+                    Game game = new Game("");
                 }
                 else if (selectedItem == MenuItems.ElementAt(2))
                 {
-                    Console.Clear();
-                    Console.WriteLine("THE SNAKE IS ... \n" +
-                        "PRESS ANY KEY TO CONTINUE.");
+                    Console.WriteLine();
+                    foreach (var line in Graffiti.Introduction)
+                    {
+                        Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine(line.ToUpper());
+                    }
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    string notification = "Press any button to continue!";
+                    Console.SetCursorPosition((Console.WindowWidth - notification.Length) / 2, Console.CursorTop);
+                    Console.WriteLine(notification.ToUpper());
                     Console.ReadKey();
                 }
                 else if (selectedItem == MenuItems.ElementAt(3))
@@ -44,7 +54,7 @@ namespace Snake
         static List<string> MenuItems = new List<string>(){
                 "START THE GAME",
                 "SHOW RECORDS",
-                "INSTRUCTIONS",
+                "INTRODUCTION",
                 "EXIT",
             };
 
