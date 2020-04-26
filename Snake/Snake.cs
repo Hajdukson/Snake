@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Text.RegularExpressions;
 namespace Snake
 {
     class Snake : ISnake
@@ -40,7 +40,7 @@ namespace Snake
         {
             Console.SetCursorPosition(HeadPosition.X, HeadPosition.Y);
             Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("@");
+            Console.Write("█");
             Tail.Add(new Coordinate(HeadPosition.X, HeadPosition.Y));
             if (Tail.Count > Length)
             {

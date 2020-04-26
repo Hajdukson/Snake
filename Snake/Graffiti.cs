@@ -55,5 +55,9 @@ namespace Snake
                                                "Surround was one of the nine Atari VCS (later the Atari 2600) launch titles in the United States.",
                                                "Was also sold by Sears under the name Chase.",
                                                "That same year, a similar game was launched for the Bally Astrocade as Checkmate."};
+        public static string[] GameMode = {
+                                           "░█▀▀▀█ ░█▀▀▀ ░█─── ░█▀▀▀ ░█▀▀█ ▀▀█▀▀ 　 ░█▀▀█ ─█▀▀█ ░█▀▄▀█ ░█▀▀▀ 　 ░█▀▄▀█ ░█▀▀▀█ ░█▀▀▄ ░█▀▀▀", 
+                                           " ▀▀▀▄▄ ░█▀▀▀ ░█─── ░█▀▀▀ ░█─── ─░█── 　 ░█─▄▄ ░█▄▄█ ░█░█░█ ░█▀▀▀ 　 ░█░█░█ ░█──░█ ░█─░█ ░█▀▀▀",
+                                           "░█▄▄▄█ ░█▄▄▄ ░█▄▄█ ░█▄▄▄ ░█▄▄█ ─░█── 　 ░█▄▄█ ░█─░█ ░█──░█ ░█▄▄▄ 　 ░█──░█ ░█▄▄▄█ ░█▄▄▀ ░█▄▄▄"};
     }
 }

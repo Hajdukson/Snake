@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace Snake
 {
@@ -21,8 +22,8 @@ namespace Snake
         void Draw()
         {
             Console.SetCursorPosition(FruitCoordinate.X, FruitCoordinate.Y);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("$");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("░");
         }
         
     }

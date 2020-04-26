@@ -21,9 +21,9 @@ namespace Snake
                 && c.Y == _snake.HeadPosition.Y).ToList().Count > 1) || outOfRange;
             }
         }
-        public Game(string mode)
+        public Game(string mode, ConsoleColor boardColor)
         {
-            Board.DrawBoard();
+            Board.DrawBoard(boardColor);
             _fruit = new Fruit();
             StartGame(mode);
         }
@@ -34,8 +34,8 @@ namespace Snake
             while (!Exit)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.SetCursorPosition(Console.BufferWidth - 14, 6);
-                Console.Write("POINTS: " + (_snake.Length - 5));
+                Console.SetCursorPosition(Console.BufferWidth - 12, 6);
+                Console.Write("SCORE:" + (_snake.Length - 5));
 
                 if (Console.KeyAvailable)
                 {
@@ -47,7 +47,7 @@ namespace Snake
                 }
                 _snake.Move();
 
-                if (mode == "GAME OVER WHEN SNAKE HIT THE WALL.")
+                if (mode == "THE GAME IS OVER WHEN SNAKE HIT THE WALL")
                 {
                     if (SnakeHitWallDie())
                         outOfRange = true;
