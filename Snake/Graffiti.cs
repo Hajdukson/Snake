@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Snake
+﻿namespace Snake
 {
     class Graffiti
     {
@@ -56,7 +50,7 @@ namespace Snake
                                                "Was also sold by Sears under the name Chase.",
                                                "That same year, a similar game was launched for the Bally Astrocade as Checkmate."};
         public static string[] GameMode = {
-                                           "░█▀▀▀█ ░█▀▀▀ ░█─── ░█▀▀▀ ░█▀▀█ ▀▀█▀▀ 　 ░█▀▀█ ─█▀▀█ ░█▀▄▀█ ░█▀▀▀ 　 ░█▀▄▀█ ░█▀▀▀█ ░█▀▀▄ ░█▀▀▀", 
+                                           "░█▀▀▀█ ░█▀▀▀ ░█─── ░█▀▀▀ ░█▀▀█ ▀▀█▀▀ 　 ░█▀▀█ ─█▀▀█ ░█▀▄▀█ ░█▀▀▀ 　 ░█▀▄▀█ ░█▀▀▀█ ░█▀▀▄ ░█▀▀▀",
                                            " ▀▀▀▄▄ ░█▀▀▀ ░█─── ░█▀▀▀ ░█─── ─░█── 　 ░█─▄▄ ░█▄▄█ ░█░█░█ ░█▀▀▀ 　 ░█░█░█ ░█──░█ ░█─░█ ░█▀▀▀",
                                            "░█▄▄▄█ ░█▄▄▄ ░█▄▄█ ░█▄▄▄ ░█▄▄█ ─░█── 　 ░█▄▄█ ░█─░█ ░█──░█ ░█▄▄▄ 　 ░█──░█ ░█▄▄▄█ ░█▄▄▀ ░█▄▄▄"};
     }

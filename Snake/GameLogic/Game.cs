@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 
 namespace Snake
 {
     class Game
     {
+        WritePlayer writePlayer = new WritePlayer("playersnames.csv");
         Fruit _fruit;
+        Player _player;
         Snake _snake = new Snake();
         bool Exit = false;
         private bool outOfRange = false;
@@ -21,9 +20,11 @@ namespace Snake
                 && c.Y == _snake.HeadPosition.Y).ToList().Count > 1) || outOfRange;
             }
         }
-        public Game(string mode, ConsoleColor boardColor)
+        public Game(string mode, string playerName, ConsoleColor boardColor = ConsoleColor.Red)
         {
+            _player = new Player(playerName);
             Board.DrawBoard(boardColor);
+            Console.CursorVisible = false;
             _fruit = new Fruit();
             StartGame(mode);
         }
@@ -47,7 +48,7 @@ namespace Snake
                 }
                 _snake.Move();
 
-                if (mode == "THE GAME IS OVER WHEN SNAKE HIT THE WALL")
+                if (mode == "THE GAME IS OVER WHEN SNAKE HITS THE WALL")
                 {
                     if (SnakeHitWallDie())
                         outOfRange = true;
@@ -81,8 +82,8 @@ namespace Snake
         {
             if (_snake.HeadPosition.X < Board.Width && _snake.HeadPosition.Y < Board.Height + 1 &&
                 _snake.HeadPosition.X > 0 && _snake.HeadPosition.Y > 0)
-            { 
-                    _snake.TailLogic();
+            {
+                _snake.TailLogic();
             }
             else
                 return true;
@@ -95,7 +96,7 @@ namespace Snake
                 _snake.HeadPosition.X = 1;
             if (_snake.HeadPosition.X == 0)
                 _snake.HeadPosition.X = Board.Width - 1;
-            if(_snake.HeadPosition.Y == Board.Height + 1)
+            if (_snake.HeadPosition.Y == Board.Height + 1)
                 _snake.HeadPosition.Y = 1;
             if (_snake.HeadPosition.Y == 0)
                 _snake.HeadPosition.Y = Board.Height;
@@ -116,7 +117,7 @@ namespace Snake
                 Console.SetCursorPosition((Console.WindowWidth - gameOverGraffitiElement.Length) / 2, Console.CursorTop);
                 Console.WriteLine(gameOverGraffitiElement);
             }
-
+            writePlayer.CheckPlayer(_player.Name, _snake);
             Exit = true;
             Console.ReadLine();
         }

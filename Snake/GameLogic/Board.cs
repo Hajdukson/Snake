@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 namespace Snake
 {
     static class Board
@@ -43,7 +38,7 @@ namespace Snake
                 Console.SetCursorPosition(Console.BufferWidth - 13, 15 + i);
                 Console.WriteLine(Graffiti.Control[i]);
             }
-            i+=3;
+            i += 3;
             Console.SetCursorPosition(Console.BufferWidth - 13, 15 + i);
             Console.Write("  FRUIT");
             i++;

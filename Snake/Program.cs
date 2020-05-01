@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Security;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 namespace Snake
 {
     class Program
@@ -14,18 +10,18 @@ namespace Snake
         {
             Console.Title = "Snake";
             Console.CursorVisible = false;
-            Console.SetWindowSize(120,30);
+            Console.SetWindowSize(120, 30);
             Console.SetBufferSize(120, 30);
-            
+            //Player first = new Player();
+            Game _game;
             while (true)
             {
                 Console.Clear();
-                DrawMenu();
+                DrawMenuGraphs();
                 string selectedItem = SelectItem(MenuItems);
                 if (selectedItem == MenuItems.ElementAt(0))
                 {
-                    ConsoleColor color = ConsoleColor.Red;
-                    while(true)
+                    while (true)
                     {
                         Console.Clear();
                         Console.WriteLine();
@@ -33,21 +29,37 @@ namespace Snake
                         Console.WriteLine();
                         string line1 = "THE MORE FRUIT YOU EAT THE MORE SCORE YOU GET";
                         string line2 = "────────────────────────────────────────────────────────────────────────────────────";
-                        Console.SetCursorPosition((Console.WindowWidth - line1.Length - 1) / 2,Console.CursorTop);
+                        string name = "ENTER PLAYER NAME: ";
+                        Console.SetCursorPosition((Console.WindowWidth - line1.Length - 1) / 2, Console.CursorTop);
                         Console.WriteLine(line1);
-                        Console.SetCursorPosition((Console.WindowWidth - line2.Length - 1) / 2,Console.CursorTop);
-                        Console.WriteLine(line2); 
+                        Console.SetCursorPosition((Console.WindowWidth - line2.Length - 1) / 2, Console.CursorTop);
+                        Console.WriteLine(line2);
                         selectedItem = SelectItem(GameModeItems);
-                        
-                        if (selectedItem == GameModeItems.ElementAt(0))
+                        if (!string.IsNullOrEmpty(selectedItem))
+                        {
+                            Console.WriteLine();
+                            Console.CursorVisible = true;
+                            Console.ForegroundColor = ConsoleColor.White;
+                            Console.SetCursorPosition((Console.WindowWidth - name.Length - 1) / 2, Console.CursorTop);
+                            Console.Write(name);
+                            name = Console.ReadLine();
+                            if(selectedItem == GameModeItems.ElementAt(1))
+                            { 
+                                _game = new Game(selectedItem, name, ConsoleColor.Blue);
+                                break;
+                            }
+
+                            _game = new Game(selectedItem, name);
                             break;
-                        else if(selectedItem == GameModeItems.ElementAt(1))
-                        { 
-                            color = ConsoleColor.Blue;
-                            break;
-                        } 
+                        }
                     }
-                    Game game = new Game(selectedItem, color);
+                }
+                else if (selectedItem == MenuItems.ElementAt(1))
+                {
+                    ReadPlayer readPlayer = new ReadPlayer("playersnames.csv");
+                    Console.Clear();
+                    readPlayer.DisplayTop10();
+                    Console.ReadKey();
                 }
                 else if (selectedItem == MenuItems.ElementAt(2))
                 {
@@ -75,18 +87,18 @@ namespace Snake
             };
         static List<string> GameModeItems = new List<string>()
         {
-            "THE GAME IS OVER WHEN SNAKE HIT THE WALL",
+            "THE GAME IS OVER WHEN SNAKE HITS THE WALL",
             " WALL DOES NOT KILL THE SNAKE"
         };
 
         static int _index = 0;
-        static void DrawMenu()
+        static void DrawMenuGraphs()
         {
             DrawGraffiti(Graffiti.Logo);
 
             string[] instruction = { "USE UP AND DOWN ARROWS",
-                                    "TO MOVE ABOVE THE MENU!",
-                                    "DO NOT CHANGE THE WINDOW SIZE!"};
+                                     "TO MOVE ABOVE THE MENU",
+                                     "DO NOT CHANGE THE WINDOW SIZE!"};
             DrawGraffiti(instruction);
 
             Console.WriteLine();
@@ -111,7 +123,7 @@ namespace Snake
             }
 
             if (SetIndex(items))
-            { 
+            {
                 choose = items[_index];
                 _index = 0;
             }
@@ -139,6 +151,6 @@ namespace Snake
                 Console.WriteLine(line.ToUpper());
             }
         }
-        
+
     }
 }

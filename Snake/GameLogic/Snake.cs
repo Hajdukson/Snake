@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 namespace Snake
 {
     class Snake : ISnake
     {
         public int Length { get; private set; } = 5;
         public Direction Direction { get; set; } = Direction.Right;
-        public Coordinate HeadPosition { get; private set; } = new Coordinate(1,1);
+        public Coordinate HeadPosition { get; private set; } = new Coordinate(1, 1);
         public List<Coordinate> Tail { get; private set; } = new List<Coordinate>();
-        
+
         public void EatFruit()
         {
             Length++;
@@ -20,7 +17,7 @@ namespace Snake
 
         public void Move()
         {
-            switch(Direction)
+            switch (Direction)
             {
                 case Direction.Left:
                     HeadPosition.X--;
@@ -51,5 +48,5 @@ namespace Snake
             }
         }
     }
-    enum Direction { Left, Right, Up, Down}
+    enum Direction { Left, Right, Up, Down }
 }
