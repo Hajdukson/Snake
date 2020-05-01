@@ -26,8 +26,8 @@ namespace Snake
 
             }
             return players;
-
         }
+         
         public void DisplayTop10()
         {
             IEnumerable<Player> players = ReadAllPlayers();

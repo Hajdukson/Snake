@@ -43,14 +43,16 @@ namespace Snake
                             Console.SetCursorPosition((Console.WindowWidth - name.Length - 1) / 2, Console.CursorTop);
                             Console.Write(name);
                             name = Console.ReadLine();
-                            if(selectedItem == GameModeItems.ElementAt(1))
-                            { 
+                            if (selectedItem == GameModeItems.ElementAt(0))
+                            {
+                                _game = new Game(selectedItem, name);
+                                break;
+                            }
+                            else if(selectedItem == GameModeItems.ElementAt(1))
+                            {
                                 _game = new Game(selectedItem, name, ConsoleColor.Blue);
                                 break;
                             }
-
-                            _game = new Game(selectedItem, name);
-                            break;
                         }
                     }
                 }

@@ -102,7 +102,6 @@ namespace Snake
                 _snake.HeadPosition.Y = Board.Height;
 
             _snake.TailLogic();
-
         }
         private void GameIsOver()
         {
