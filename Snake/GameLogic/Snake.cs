@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-namespace Snake
+namespace Snake.GameLogic
 {
     class Snake : ISnake
     {
@@ -14,7 +14,6 @@ namespace Snake
         {
             Length++;
         }
-
         public void Move()
         {
             switch (Direction)

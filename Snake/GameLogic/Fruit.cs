@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Snake
+namespace Snake.GameLogic
 {
     class Fruit
     {

@@ -1,41 +1,35 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Snake
+namespace Snake.RankingLogic
 {
     class WritePlayer
     {
-        private string _fileName;
+        private string _filename;
         public WritePlayer(string filename)
         {
-            _fileName = filename;
+            _filename = filename;
         }
-        public void CheckPlayer(string name, Snake snake)
+        public void OverwritePlayerOrAddNewPlayer(string name, Snake.GameLogic.Snake snake)
         {
-            ReadPlayer read = new ReadPlayer(_fileName);
+            ReadPlayer read = new ReadPlayer(_filename);
             List<Player> players = read.ReadAllPlayers();
-            Console.WriteLine(players.Count());
+            
             int recentScore = snake.Length - 5;
             string line = name + ";" + recentScore + Environment.NewLine;
 
             Player find = players.Find(player => player.Name == name);
 
             if (find == null)
-                File.AppendAllText(_fileName, line);
-            else
+                File.AppendAllText(_filename, line);
+            else if (find.Score < recentScore)
             {
-                Console.WriteLine(find.Score);
-                if (find.Score < recentScore)
-                    find.Score = recentScore;
-                
-                File.WriteAllLines(_fileName, PlatersToString(players));
-            }    
+                find.Score = recentScore;
+                File.WriteAllLines(_filename, PlayersToString(players));
+            }     
         }
-        private IEnumerable<string> PlatersToString(IEnumerable<Player> players)
+        private IEnumerable<string> PlayersToString(IEnumerable<Player> players)
         {
             List<string> lines = new List<string>(); 
             foreach (var player in players)

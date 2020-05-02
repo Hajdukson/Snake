@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Snake
+namespace Snake.GameLogic
 {
     static class Board
     {

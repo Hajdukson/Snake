@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Snake.RankingLogic;
+using System;
 using System.Linq;
 using System.Threading;
 
-namespace Snake
+namespace Snake.GameLogic
 {
     class Game
     {
@@ -116,11 +117,10 @@ namespace Snake
                 Console.SetCursorPosition((Console.WindowWidth - gameOverGraffitiElement.Length) / 2, Console.CursorTop);
                 Console.WriteLine(gameOverGraffitiElement);
             }
-            writePlayer.CheckPlayer(_player.Name, _snake);
+            writePlayer.OverwritePlayerOrAddNewPlayer(_player.Name, _snake);
             Exit = true;
             Console.ReadLine();
         }
-
         private void Control(ConsoleKeyInfo input)
         {
             switch (input.Key)
@@ -140,5 +140,4 @@ namespace Snake
             }
         }
     }
-
 }

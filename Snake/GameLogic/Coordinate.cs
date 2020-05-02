@@ -1,4 +1,4 @@
-﻿namespace Snake
+﻿namespace Snake.GameLogic
 {
     public class Coordinate
     {

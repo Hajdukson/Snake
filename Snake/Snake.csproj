@@ -49,12 +49,12 @@
     <Compile Include="GameLogic\Game.cs" />
     <Compile Include="Graffiti.cs" />
     <Compile Include="GameLogic\ISnake.cs" />
-    <Compile Include="RankLogic\Player.cs" />
+    <Compile Include="RankingLogic\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameLogic\Snake.cs" />
-    <Compile Include="RankLogic\ReadPlayer.cs" />
-    <Compile Include="RankLogic\WritePlayer.cs" />
+    <Compile Include="RankingLogic\ReadPlayer.cs" />
+    <Compile Include="RankingLogic\WritePlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

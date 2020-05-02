@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Snake.GameLogic;
+using Snake.RankingLogic;
+using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace Snake
 {
     class Program
@@ -12,8 +16,9 @@ namespace Snake
             Console.CursorVisible = false;
             Console.SetWindowSize(120, 30);
             Console.SetBufferSize(120, 30);
-            //Player first = new Player();
+
             Game _game;
+
             while (true)
             {
                 Console.Clear();
@@ -60,7 +65,7 @@ namespace Snake
                 {
                     ReadPlayer readPlayer = new ReadPlayer("playersnames.csv");
                     Console.Clear();
-                    readPlayer.DisplayTop10();
+                    DrawGraffiti(Graffiti.Ranking);
                     Console.ReadKey();
                 }
                 else if (selectedItem == MenuItems.ElementAt(2))
