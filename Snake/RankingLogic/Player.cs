@@ -1,6 +1,8 @@
-﻿namespace Snake.RankingLogic
+﻿using System;
+
+namespace Snake.RankingLogic
 {
-    class Player 
+    class Player
     {
         public string Name { get; set; }
         public int Score { get; set; }
@@ -12,5 +14,10 @@
         {
          
         }
+
+        //public int CompareTo(Player other)
+        //{
+        //   return this.Score.CompareTo(other.Score);
+        //}
     }
 }

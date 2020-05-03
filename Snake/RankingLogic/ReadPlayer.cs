@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Snake.RankingLogic
 {
@@ -30,17 +31,26 @@ namespace Snake.RankingLogic
         } 
         public void DisplayTop10()
         {
-            IEnumerable<Player> players = ReadAllPlayers();
+            IList<Player> players = ReadAllPlayers();
 
-            foreach (var player in players)
+            players = players.OrderByDescending(p=>p.Score).ToList();
+
+            for (int i = 0; i < players.Count; i++)
             {
-                //string name = player.Name;
-                //int score = player.Score;
-                //Console.SetCursorPosition((Console.WindowWidth - name.Length) / 2, Console.CursorTop);
-                //Console.WriteLine(name);
-                //Console.SetCursorPosition((Console.WindowWidth score.Length) / 2, Console.CursorTop);
-                //Console.WriteLine(score);
-            } 
+                if (i < 3)
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                else
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                Console.SetCursorPosition((Console.WindowWidth - 30) / 2, 3 + i);
+                Console.Write(i + 1 + ".");
+                Console.SetCursorPosition((Console.WindowWidth - players[i].Name.Length - 13) / 2, 3 + i);
+                Console.Write(players[i].Name);
+                Console.SetCursorPosition((Console.WindowWidth - players[i].Score.ToString().Length) / 2 + 6, 3 + i);
+                Console.Write(players[i].Score);
+                if (i == 9)
+                    break;
+            }
         }
     }
 }

@@ -66,6 +66,7 @@ namespace Snake
                     ReadPlayer readPlayer = new ReadPlayer("playersnames.csv");
                     Console.Clear();
                     DrawGraffiti(Graffiti.Ranking);
+                    readPlayer.DisplayTop10();
                     Console.ReadKey();
                 }
                 else if (selectedItem == MenuItems.ElementAt(2))
