@@ -42,7 +42,8 @@
                                         "    |    ",
                                         "L<-- -->R",
                                         "    |    ",
-                                        "    v    ", };
+                                        "    v    ",
+                                        "    D    "};
         public static string[] Introduction = {"The Snake design dates back to the arcade game Blockade, developed and published by Gremlin in 1976. ",
                                                "It was cloned as Bigfoot Bonkers the same year.",
                                                "In 1977, Atari released two Blockadeinspired titles: the arcade game Dominos and Atari VCS game Surround.",
@@ -54,7 +55,7 @@
                                            " ▀▀▀▄▄ ░█▀▀▀ ░█─── ░█▀▀▀ ░█─── ─░█── 　 ░█─▄▄ ░█▄▄█ ░█░█░█ ░█▀▀▀ 　 ░█░█░█ ░█──░█ ░█─░█ ░█▀▀▀",
                                            "░█▄▄▄█ ░█▄▄▄ ░█▄▄█ ░█▄▄▄ ░█▄▄█ ─░█── 　 ░█▄▄█ ░█─░█ ░█──░█ ░█▄▄▄ 　 ░█──░█ ░█▄▄▄█ ░█▄▄▀ ░█▄▄▄"};
         public static string[] Ranking = {  "                                  ",
-                                            "     PLAYERS          SCORES      ",
+                                            "     PLAYER            SCORE      ",
                                             "________________ _________________",
                                             "█",
                                             "█",

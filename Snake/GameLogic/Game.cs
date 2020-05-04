@@ -23,6 +23,8 @@ namespace Snake.GameLogic
         }
         public Game(string mode, string playerName, ConsoleColor boardColor = ConsoleColor.Red)
         {
+            Console.SetWindowSize(70, 40);
+            Console.SetBufferSize(70, 40);
             _player = new Player(playerName);
             Board.DrawBoard(boardColor);
             Console.CursorVisible = false;
@@ -35,8 +37,11 @@ namespace Snake.GameLogic
 
             while (!Exit)
             {
+
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.SetCursorPosition(Console.BufferWidth - 12, 6);
+                Console.SetCursorPosition(Console.BufferWidth - 16, 8);
+                Console.Write("PLAYER " + _player.Name);
+                Console.SetCursorPosition(Console.BufferWidth - 13, 9);
                 Console.Write("SCORE:" + (_snake.Length - 5));
 
                 if (Console.KeyAvailable)
@@ -49,7 +54,7 @@ namespace Snake.GameLogic
                 }
                 _snake.Move();
 
-                if (mode == "THE GAME IS OVER WHEN SNAKE HITS THE WALL")
+                if (mode == "WALL KILLS THE SNAKE")
                 {
                     if (SnakeHitWallDie())
                         outOfRange = true;
@@ -106,6 +111,8 @@ namespace Snake.GameLogic
         }
         private void GameIsOver()
         {
+            Console.SetWindowSize(120, 30);
+            Console.SetBufferSize(120, 30);
             Console.Clear();
             string info = $"YOUR SCORE: {_snake.Length - 5}. PRESS ENTER TO CONTIUNUE.";
             Console.SetCursorPosition((Console.WindowWidth - info.Length) / 2, Console.CursorTop);

@@ -46,11 +46,16 @@ namespace Snake.RankingLogic
                 Console.Write(i + 1 + ".");
                 Console.SetCursorPosition((Console.WindowWidth - players[i].Name.Length - 13) / 2, 3 + i);
                 Console.Write(players[i].Name);
-                Console.SetCursorPosition((Console.WindowWidth - players[i].Score.ToString().Length) / 2 + 6, 3 + i);
+                Console.SetCursorPosition((Console.WindowWidth - players[i].Score.ToString().Length) / 2 + 8, 3 + i);
                 Console.Write(players[i].Score);
                 if (i == 9)
                     break;
             }
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            string line = "PRESS ANY BUTTON TO EXIT FOR RANKING";
+            Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop + 3);
+            Console.WriteLine(line);
         }
     }
 }

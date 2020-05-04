@@ -3,9 +3,8 @@ namespace Snake.GameLogic
 {
     static class Board
     {
-        public static int Width { get; private set; } = 100;
+        public static int Width { get; private set; } = 50;
         public static int Height { get; private set; } = Console.BufferHeight - 2;
-
         public static void DrawBoard(ConsoleColor color)
         {
             Console.ForegroundColor = color;
@@ -27,24 +26,26 @@ namespace Snake.GameLogic
         private static void Control()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.SetCursorPosition(Console.BufferWidth - 17, 10);
-            Console.Write("  USE ARROWS TO");
-            Console.SetCursorPosition(Console.BufferWidth - 19, 11);
-            Console.WriteLine("  CONTROL THE SNAKE");
+            Console.SetCursorPosition(Console.BufferWidth - 17, 16);
+            Console.Write(" USE ARROWS TO");
+            Console.SetCursorPosition(Console.BufferWidth - 19, 17);
+            Console.WriteLine(" CONTROL THE SNAKE");
+
             int i = 0;
             for (; i < Graffiti.Control.Length; i++)
             {
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.SetCursorPosition(Console.BufferWidth - 13, 15 + i);
+                Console.SetCursorPosition(Console.BufferWidth - 14, 21 + i);
                 Console.WriteLine(Graffiti.Control[i]);
             }
             i += 3;
-            Console.SetCursorPosition(Console.BufferWidth - 13, 15 + i);
-            Console.Write("  FRUIT");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(Console.BufferWidth - 13, 21 + i);
+            Console.Write(" FRUIT");
             i++;
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.SetCursorPosition(Console.BufferWidth - 11, 15 + i);
-            Console.WriteLine("  ░");
+            Console.SetCursorPosition(Console.BufferWidth - 11, 21 + i);
+            Console.WriteLine(" ░");
 
         }
     }

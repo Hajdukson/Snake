@@ -21,6 +21,7 @@ namespace Snake
 
             while (true)
             {
+                Found:
                 Console.Clear();
                 DrawMenuGraphs();
                 string selectedItem = SelectItem(MenuItems);
@@ -32,32 +33,43 @@ namespace Snake
                         Console.WriteLine();
                         DrawGraffiti(Graffiti.GameMode);
                         Console.WriteLine();
+
                         string line1 = "THE MORE FRUIT YOU EAT THE MORE SCORE YOU GET";
                         string line2 = "────────────────────────────────────────────────────────────────────────────────────";
                         string name = "ENTER PLAYER NAME: ";
+
                         Console.SetCursorPosition((Console.WindowWidth - line1.Length - 1) / 2, Console.CursorTop);
                         Console.WriteLine(line1);
                         Console.SetCursorPosition((Console.WindowWidth - line2.Length - 1) / 2, Console.CursorTop);
                         Console.WriteLine(line2);
+
                         selectedItem = SelectItem(GameModeItems);
+
                         if (!string.IsNullOrEmpty(selectedItem))
                         {
                             Console.WriteLine();
-                            Console.CursorVisible = true;
                             Console.ForegroundColor = ConsoleColor.White;
                             Console.SetCursorPosition((Console.WindowWidth - name.Length - 1) / 2, Console.CursorTop);
                             Console.Write(name);
-                            name = Console.ReadLine();
+
+
                             if (selectedItem == GameModeItems.ElementAt(0))
                             {
-                                _game = new Game(selectedItem, name);
-                                break;
-                            }
-                            else if(selectedItem == GameModeItems.ElementAt(1))
-                            {
+                                Console.CursorVisible = true;
+                                name = Console.ReadLine();
                                 _game = new Game(selectedItem, name, ConsoleColor.Blue);
                                 break;
                             }
+                            else if (selectedItem == GameModeItems.ElementAt(1))
+                            {
+                                Console.CursorVisible = true;
+                                name = Console.ReadLine();
+                                _game = new Game(selectedItem, name);
+                                break;
+                            }
+
+                            else if(selectedItem == GameModeItems.ElementAt(2))
+                                goto Found;
                         }
                     }
                 }
@@ -84,9 +96,7 @@ namespace Snake
                     Environment.Exit(0);
             }
         }
-
         /////////////////////////////////////////////////////////////////////////////
-
         static List<string> MenuItems = new List<string>(){
                 "START THE GAME",
                 "SHOW RECORDS",
@@ -95,10 +105,10 @@ namespace Snake
             };
         static List<string> GameModeItems = new List<string>()
         {
-            "THE GAME IS OVER WHEN SNAKE HITS THE WALL",
-            " WALL DOES NOT KILL THE SNAKE"
+            "WALL DOES NOT KILL THE SNAKE",
+            "WALL KILLS THE SNAKE",
+            "BACK"
         };
-
         static int _index = 0;
         static void DrawMenuGraphs()
         {
@@ -159,6 +169,5 @@ namespace Snake
                 Console.WriteLine(line.ToUpper());
             }
         }
-
     }
 }
