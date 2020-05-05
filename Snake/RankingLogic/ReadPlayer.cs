@@ -7,14 +7,14 @@ namespace Snake.RankingLogic
 {
     class ReadPlayer
     {
-        private string _filename;
-        public ReadPlayer(string filename)
+        private string _filePath;
+        public ReadPlayer(string filePathe)
         {
-            _filename = filename;
+            _filePath = filePathe;
         }
         public List<Player> ReadAllPlayers()
         {
-            IEnumerable<string> lines = File.ReadAllLines(_filename);
+            IEnumerable<string> lines = File.ReadAllLines(_filePath);
 
             List<Player> players = new List<Player>();
 
@@ -28,7 +28,7 @@ namespace Snake.RankingLogic
                 }
             }
             return players;
-        } 
+        }
         public void DisplayTop10()
         {
             IList<Player> players = ReadAllPlayers();
@@ -54,7 +54,7 @@ namespace Snake.RankingLogic
 
             Console.ForegroundColor = ConsoleColor.Red;
             string line = "PRESS ANY BUTTON TO EXIT FOR RANKING";
-            Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop + 3);
+            Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, 13 + 3);
             Console.WriteLine(line);
         }
     }

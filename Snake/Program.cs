@@ -1,14 +1,23 @@
 ﻿using Snake.GameLogic;
 using Snake.RankingLogic;
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Snake
 {
+    //main class which is responsible for a game menu
     class Program
     {
+        //creats a paht where is a file with players scores 
+        static string PathToDb()
+        {
+            string pathToProject = Assembly.GetExecutingAssembly().Location;
+            string _filePath = pathToProject.Substring(0, pathToProject.Length - 19) + "playersnames.csv";
+            return _filePath;
+        }
         /////////////////////////////////////////////////////////////////////////////
         static void Main(string[] args)
         {
@@ -57,14 +66,14 @@ namespace Snake
                             {
                                 Console.CursorVisible = true;
                                 name = Console.ReadLine();
-                                _game = new Game(selectedItem, name, ConsoleColor.Blue);
+                                _game = new Game(selectedItem, name, PathToDb(), ConsoleColor.Blue);
                                 break;
                             }
                             else if (selectedItem == GameModeItems.ElementAt(1))
                             {
                                 Console.CursorVisible = true;
                                 name = Console.ReadLine();
-                                _game = new Game(selectedItem, name);
+                                _game = new Game(selectedItem, name, PathToDb());
                                 break;
                             }
 
@@ -75,7 +84,7 @@ namespace Snake
                 }
                 else if (selectedItem == MenuItems.ElementAt(1))
                 {
-                    ReadPlayer readPlayer = new ReadPlayer("playersnames.csv");
+                    ReadPlayer readPlayer = new ReadPlayer(PathToDb());
                     Console.Clear();
                     DrawGraffiti(Graffiti.Ranking);
                     readPlayer.DisplayTop10();
@@ -113,12 +122,7 @@ namespace Snake
         static void DrawMenuGraphs()
         {
             DrawGraffiti(Graffiti.Logo);
-
-            string[] instruction = { "USE UP AND DOWN ARROWS",
-                                     "TO MOVE ABOVE THE MENU",
-                                     "DO NOT CHANGE THE WINDOW SIZE!"};
-            DrawGraffiti(instruction);
-
+            DrawGraffiti(Graffiti.Instruction);
             Console.WriteLine();
         }
         static string SelectItem(List<string> items)

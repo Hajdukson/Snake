@@ -6,14 +6,14 @@ namespace Snake.RankingLogic
 {
     class WritePlayer
     {
-        private string _filename;
+        private string _filePath;
         public WritePlayer(string filename)
         {
-            _filename = filename;
+            _filePath = filename;
         }
         public void OverwritePlayerOrAddNewPlayer(string name, Snake.GameLogic.Snake snake)
         {
-            ReadPlayer read = new ReadPlayer(_filename);
+            ReadPlayer read = new ReadPlayer(_filePath);
             List<Player> players = read.ReadAllPlayers();
             
             int recentScore = snake.Length - 5;
@@ -22,11 +22,11 @@ namespace Snake.RankingLogic
             Player find = players.Find(player => player.Name == name);
 
             if (find == null)
-                File.AppendAllText(_filename, line);
+                File.AppendAllText(_filePath, line);
             else if (find.Score < recentScore)
             {
                 find.Score = recentScore;
-                File.WriteAllLines(_filename, PlayersToString(players));
+                File.WriteAllLines(_filePath, PlayersToString(players));
             }     
         }
         private IEnumerable<string> PlayersToString(IEnumerable<Player> players)
@@ -39,5 +39,6 @@ namespace Snake.RankingLogic
             }
             return lines;
         }
+
     }
 }

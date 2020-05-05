@@ -10,6 +10,9 @@
                                          @"                        ,-.|               ",
                                          @"                        `-+'               "
                                          };
+        public static string[] Instruction = { "USE UP AND DOWN ARROWS",
+                                     "TO MOVE ABOVE THE MENU",
+                                     "DO NOT CHANGE THE WINDOW SIZE!"};
 
         public static string[] GameOver = {"────────────────────────────────────────────────────────────────────────────────────",
 

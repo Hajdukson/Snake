@@ -1,13 +1,15 @@
 ﻿using Snake.RankingLogic;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Reflection;
 
 namespace Snake.GameLogic
 {
     class Game
     {
-        WritePlayer writePlayer = new WritePlayer("playersnames.csv");
+        WritePlayer _writePlayer;
         Fruit _fruit;
         Player _player;
         Snake _snake = new Snake();
@@ -21,8 +23,9 @@ namespace Snake.GameLogic
                 && c.Y == _snake.HeadPosition.Y).ToList().Count > 1) || outOfRange;
             }
         }
-        public Game(string mode, string playerName, ConsoleColor boardColor = ConsoleColor.Red)
+        public Game(string mode, string playerName, string filePath, ConsoleColor boardColor = ConsoleColor.Red)
         {
+            _writePlayer = new WritePlayer(filePath);
             Console.SetWindowSize(70, 40);
             Console.SetBufferSize(70, 40);
             _player = new Player(playerName);
@@ -124,7 +127,7 @@ namespace Snake.GameLogic
                 Console.SetCursorPosition((Console.WindowWidth - gameOverGraffitiElement.Length) / 2, Console.CursorTop);
                 Console.WriteLine(gameOverGraffitiElement);
             }
-            writePlayer.OverwritePlayerOrAddNewPlayer(_player.Name, _snake);
+            _writePlayer.OverwritePlayerOrAddNewPlayer(_player.Name, _snake);
             Exit = true;
             Console.ReadLine();
         }
