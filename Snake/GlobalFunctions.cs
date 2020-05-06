@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Snake
 {
@@ -17,11 +13,11 @@ namespace Snake
                 Console.WriteLine(line.ToUpper());
             }
         }
-        public static void PressButton(int coursorPosition = 2)
+        public static void PressButton(int coursorPosition)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             string notification = "Press any button to continue";
-            Console.SetCursorPosition((Console.WindowWidth - notification.Length) / 2, Console.CursorTop + coursorPosition);
+            Console.SetCursorPosition((Console.WindowWidth - notification.Length) / 2, coursorPosition);
             Console.WriteLine(notification.ToUpper());
             Console.ReadKey();
         }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Snake.RankingLogic
+﻿namespace Snake.RankingLogic
 {
     class Player
     {

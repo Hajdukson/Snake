@@ -2,7 +2,6 @@
 using Snake.RankingLogic;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -11,7 +10,7 @@ namespace Snake
     //main class which is responsible for a game menu
     class Program
     {
-        //creats a paht where is a file with players scores 
+        //creats a paht where file with players scores has been created
         static string PathToDb()
         {
             string pathToProject = Assembly.GetExecutingAssembly().Location;
@@ -96,7 +95,7 @@ namespace Snake
                 {
                     Console.WriteLine();
                     GlobalFunctions.DrawGraffiti(Graffiti.Introduction, ConsoleColor.Yellow);
-                    GlobalFunctions.PressButton();
+                    GlobalFunctions.PressButton(22);
                 }
                 else if (selectedItem == MenuItems.ElementAt(3))
                     Environment.Exit(0);
@@ -111,7 +110,7 @@ namespace Snake
                 string notyfication = "PLAYERNAME SHOULD HAVE MAX 9 LETTERS";
                 Console.SetCursorPosition((Console.WindowWidth - notyfication.Length) / 2, Console.CursorTop + 1);
                 Console.Write(notyfication);
-                GlobalFunctions.PressButton();
+                GlobalFunctions.PressButton(15);
                 return false;
             }
             return true;

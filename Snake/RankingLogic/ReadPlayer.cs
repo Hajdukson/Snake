@@ -54,7 +54,7 @@ namespace Snake.RankingLogic
                 if (i == 9)
                     break;
             }
-            GlobalFunctions.PressButton(11);
+            GlobalFunctions.PressButton(14);
         }
     }
 }

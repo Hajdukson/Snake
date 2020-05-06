@@ -47,12 +47,13 @@
                                         "    |    ",
                                         "    v    ",
                                         "    D    "};
-        public static string[] Introduction = {"The Snake design dates back to the arcade game Blockade, developed and published by Gremlin in 1976. ",
-                                               "It was cloned as Bigfoot Bonkers the same year.",
-                                               "In 1977, Atari released two Blockadeinspired titles: the arcade game Dominos and Atari VCS game Surround.",
-                                               "Surround was one of the nine Atari VCS (later the Atari 2600) launch titles in the United States.",
-                                               "Was also sold by Sears under the name Chase.",
-                                               "That same year, a similar game was launched for the Bally Astrocade as Checkmate."};
+        public static string[] Introduction = { "Snake is the common game concept where the player maneuvers a line which grows in length.",
+                "The concept originated in the 1976 arcade game Blockade,",
+                "and the ease of implementing Snake has led to hundreds of versions ",
+                "(some of which have the word snake or worm in the title) ",
+                "for many platforms. After a variant was preloaded on Nokia mobile phones in 1998,",
+                "there was a resurgence of interest in the snake concept as it found a larger audience."};
+
         public static string[] GameMode = {
                                            "░█▀▀▀█ ░█▀▀▀ ░█─── ░█▀▀▀ ░█▀▀█ ▀▀█▀▀ 　 ░█▀▀█ ─█▀▀█ ░█▀▄▀█ ░█▀▀▀ 　 ░█▀▄▀█ ░█▀▀▀█ ░█▀▀▄ ░█▀▀▀",
                                            " ▀▀▀▄▄ ░█▀▀▀ ░█─── ░█▀▀▀ ░█─── ─░█── 　 ░█─▄▄ ░█▄▄█ ░█░█░█ ░█▀▀▀ 　 ░█░█░█ ░█──░█ ░█─░█ ░█▀▀▀",
