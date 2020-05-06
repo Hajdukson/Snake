@@ -39,6 +39,14 @@ namespace Snake.RankingLogic
             }
             return lines;
         }
+        public void SaveOnlyTop10(List<Player> players)
+        {
+            if (players.Count > 10)
+            {
+                players.RemoveAt(10);
+                File.WriteAllLines(_filePath, PlayersToString(players));
+            }
+        }
 
     }
 }

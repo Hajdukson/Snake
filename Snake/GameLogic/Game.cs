@@ -40,7 +40,6 @@ namespace Snake.GameLogic
 
             while (!Exit)
             {
-
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.SetCursorPosition(Console.BufferWidth - 16, 8);
                 Console.Write("PLAYER " + _player.Name);
@@ -121,12 +120,8 @@ namespace Snake.GameLogic
             Console.SetCursorPosition((Console.WindowWidth - info.Length) / 2, Console.CursorTop);
             Console.WriteLine(info);
 
-            foreach (var gameOverGraffitiElement in Graffiti.GameOver)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.SetCursorPosition((Console.WindowWidth - gameOverGraffitiElement.Length) / 2, Console.CursorTop);
-                Console.WriteLine(gameOverGraffitiElement);
-            }
+            GlobalFunctions.DrawGraffiti(Graffiti.GameOver, ConsoleColor.Red);
+
             _writePlayer.OverwritePlayerOrAddNewPlayer(_player.Name, _snake);
             Exit = true;
             Console.ReadLine();

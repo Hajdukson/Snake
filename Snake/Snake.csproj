@@ -47,6 +47,7 @@
     <Compile Include="GameLogic\Coordinate.cs" />
     <Compile Include="GameLogic\Fruit.cs" />
     <Compile Include="GameLogic\Game.cs" />
+    <Compile Include="GlobalFunctions.cs" />
     <Compile Include="Graffiti.cs" />
     <Compile Include="GameLogic\ISnake.cs" />
     <Compile Include="RankingLogic\Player.cs" />

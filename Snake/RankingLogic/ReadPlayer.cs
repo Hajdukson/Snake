@@ -31,9 +31,12 @@ namespace Snake.RankingLogic
         }
         public void DisplayTop10()
         {
-            IList<Player> players = ReadAllPlayers();
+            List<Player> players = ReadAllPlayers();
+            WritePlayer write = new WritePlayer(_filePath);
 
             players = players.OrderByDescending(p=>p.Score).ToList();
+
+            write.SaveOnlyTop10(players);
 
             for (int i = 0; i < players.Count; i++)
             {
@@ -51,11 +54,7 @@ namespace Snake.RankingLogic
                 if (i == 9)
                     break;
             }
-
-            Console.ForegroundColor = ConsoleColor.Red;
-            string line = "PRESS ANY BUTTON TO EXIT FOR RANKING";
-            Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, 13 + 3);
-            Console.WriteLine(line);
+            GlobalFunctions.PressButton(11);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Snake
         static string PathToDb()
         {
             string pathToProject = Assembly.GetExecutingAssembly().Location;
-            string _filePath = pathToProject.Substring(0, pathToProject.Length - 19) + "playersnames.csv";
+            string _filePath = pathToProject.Substring(0, pathToProject.Length - 19) + "ranking.csv";
             return _filePath;
         }
         /////////////////////////////////////////////////////////////////////////////
@@ -40,7 +40,7 @@ namespace Snake
                     {
                         Console.Clear();
                         Console.WriteLine();
-                        DrawGraffiti(Graffiti.GameMode);
+                        GlobalFunctions.DrawGraffiti(Graffiti.GameMode);
                         Console.WriteLine();
 
                         string line1 = "THE MORE FRUIT YOU EAT THE MORE SCORE YOU GET";
@@ -66,6 +66,8 @@ namespace Snake
                             {
                                 Console.CursorVisible = true;
                                 name = Console.ReadLine();
+                                if (!Max9Char(name))
+                                    continue;
                                 _game = new Game(selectedItem, name, PathToDb(), ConsoleColor.Blue);
                                 break;
                             }
@@ -73,10 +75,11 @@ namespace Snake
                             {
                                 Console.CursorVisible = true;
                                 name = Console.ReadLine();
+                                if(!Max9Char(name))
+                                    continue;
                                 _game = new Game(selectedItem, name, PathToDb());
                                 break;
                             }
-
                             else if(selectedItem == GameModeItems.ElementAt(2))
                                 goto Found;
                         }
@@ -86,26 +89,33 @@ namespace Snake
                 {
                     ReadPlayer readPlayer = new ReadPlayer(PathToDb());
                     Console.Clear();
-                    DrawGraffiti(Graffiti.Ranking);
+                    GlobalFunctions.DrawGraffiti(Graffiti.Ranking);
                     readPlayer.DisplayTop10();
-                    Console.ReadKey();
                 }
                 else if (selectedItem == MenuItems.ElementAt(2))
                 {
                     Console.WriteLine();
-                    DrawGraffiti(Graffiti.Introduction, ConsoleColor.Yellow);
-                    Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    string notification = "Press any button to continue";
-                    Console.SetCursorPosition((Console.WindowWidth - notification.Length) / 2, Console.CursorTop);
-                    Console.WriteLine(notification.ToUpper());
-                    Console.ReadKey();
+                    GlobalFunctions.DrawGraffiti(Graffiti.Introduction, ConsoleColor.Yellow);
+                    GlobalFunctions.PressButton();
                 }
                 else if (selectedItem == MenuItems.ElementAt(3))
                     Environment.Exit(0);
             }
         }
         /////////////////////////////////////////////////////////////////////////////
+        static bool Max9Char(string name)
+        {
+            if(name.Length > 9)
+            {
+                Console.CursorVisible = false;
+                string notyfication = "PLAYERNAME SHOULD HAVE MAX 9 LETTERS";
+                Console.SetCursorPosition((Console.WindowWidth - notyfication.Length) / 2, Console.CursorTop + 1);
+                Console.Write(notyfication);
+                GlobalFunctions.PressButton();
+                return false;
+            }
+            return true;
+        }
         static List<string> MenuItems = new List<string>(){
                 "START THE GAME",
                 "SHOW RECORDS",
@@ -121,8 +131,8 @@ namespace Snake
         static int _index = 0;
         static void DrawMenuGraphs()
         {
-            DrawGraffiti(Graffiti.Logo);
-            DrawGraffiti(Graffiti.Instruction);
+            GlobalFunctions.DrawGraffiti(Graffiti.Logo);
+            GlobalFunctions.DrawGraffiti(Graffiti.Instruction);
             Console.WriteLine();
         }
         static string SelectItem(List<string> items)
@@ -163,15 +173,6 @@ namespace Snake
             else if (_index < 0) _index = items.Count - 1;
 
             return key.Key == ConsoleKey.Enter;
-        }
-        static void DrawGraffiti(string[] graffiti, ConsoleColor color = ConsoleColor.White)
-        {
-            Console.ForegroundColor = color;
-            foreach (var line in graffiti)
-            {
-                Console.SetCursorPosition((Console.WindowWidth - line.Length) / 2, Console.CursorTop);
-                Console.WriteLine(line.ToUpper());
-            }
         }
     }
 }
