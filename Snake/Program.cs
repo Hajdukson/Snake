@@ -10,7 +10,7 @@ namespace Snake
     //main class which is responsible for a game menu
     class Program
     {
-        //creats a paht where file with players scores have created
+        //creats a paht where file with players scores have been created
         static string PathToDb()
         {
             string pathToProject = Assembly.GetExecutingAssembly().Location;

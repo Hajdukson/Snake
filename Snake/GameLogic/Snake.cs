@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Snake.GameLogic
 {
-    class Snake : ISnake
+    public class Snake : ISnake
     {
         public int Length { get; private set; } = 5;
         public Direction Direction { get; set; } = Direction.Right;
@@ -12,7 +12,7 @@ namespace Snake.GameLogic
 
         public void EatFruit()
         {
-            Length++;
+            Length+=2;
         }
         public void Move()
         {
@@ -51,5 +51,5 @@ namespace Snake.GameLogic
             }
         }
     }
-    enum Direction { Left, Right, Up, Down }
+    public enum Direction { Left, Right, Up, Down }
 }

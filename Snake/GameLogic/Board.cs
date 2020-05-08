@@ -1,12 +1,18 @@
 ﻿using System;
 namespace Snake.GameLogic
 {
-    static class Board
+    class Board
     {
-        public static int Width { get; private set; } = 50;
-        public static int Height { get; private set; } = Console.BufferHeight - 2;
-        public static void DrawBoard(ConsoleColor color)
+        public int Width { get; private set; } = 50;
+        public int Height { get; private set; } = 38;
+        public Board()
         {
+            Console.SetWindowSize(70, 40);
+            Console.SetBufferSize(70, 40);
+        }
+        public void DrawBoard(ConsoleColor color)
+        {
+            Console.Clear();
             Console.ForegroundColor = color;
             for (int i = 0; i <= Width; i++)
                 Console.Write("█");
@@ -21,11 +27,9 @@ namespace Snake.GameLogic
             for (int i = 0; i <= Width; i++)
                 Console.Write("█");
 
-            
-
             Control();
         }
-        private static void Control()
+        private void Control()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.SetCursorPosition(Console.BufferWidth - 17, 16);

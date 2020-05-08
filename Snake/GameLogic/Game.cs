@@ -10,9 +10,11 @@ namespace Snake.GameLogic
         WritePlayer _writePlayer;
         Fruit _fruit;
         Player _player;
+        Board _board = new Board();
         Snake _snake = new Snake();
         bool Exit = false;
         private bool outOfRange = false;
+        private int points = 0;
         private bool GameOver
         {
             get
@@ -24,10 +26,8 @@ namespace Snake.GameLogic
         public Game(string mode, string playerName, string filePath, ConsoleColor boardColor = ConsoleColor.Red)
         {
             _writePlayer = new WritePlayer(filePath);
-            Console.SetWindowSize(70, 40);
-            Console.SetBufferSize(70, 40);
             _player = new Player(playerName);
-            Board.DrawBoard(boardColor);
+            _board.DrawBoard(boardColor);
             Console.CursorVisible = false;
             _fruit = new Fruit();
             StartGame(mode);
@@ -42,7 +42,7 @@ namespace Snake.GameLogic
                 Console.SetCursorPosition(Console.BufferWidth - 16, 8);
                 Console.Write("PLAYER " + _player.Name);
                 Console.SetCursorPosition(Console.BufferWidth - 13, 9);
-                Console.Write("SCORE:" + (_snake.Length - 5));
+                Console.Write("SCORE:" + points);
 
                 if (Console.KeyAvailable)
                 {
@@ -52,6 +52,7 @@ namespace Snake.GameLogic
                     else
                         GameIsOver();
                 }
+
                 _snake.Move();
 
                 if (mode == "WALL KILLS THE SNAKE")
@@ -62,11 +63,21 @@ namespace Snake.GameLogic
                 else
                     SnakeHitWallAppearOpposite();
 
+                _snake.TailLogic();
+
                 if (_fruit.FruitCoordinate.X == _snake.HeadPosition.X && _fruit.FruitCoordinate.Y == _snake.HeadPosition.Y)
                 {
-                    _snake.EatFruit();
-                    frame += 3;
+                    points++;
                     _fruit = new Fruit();
+                    while (FruitRespOnSnakeTail(_fruit) == true)
+                    {
+                        Console.SetCursorPosition(_fruit.FruitCoordinate.X, _fruit.FruitCoordinate.Y);
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write("█");
+                        _fruit = new Fruit();
+                    }
+                    _snake.EatFruit();
+                    frame += 1;
                 }
 
                 if (GameOver == true)
@@ -76,39 +87,33 @@ namespace Snake.GameLogic
                 
             }
         }
-        //private bool FruitRespOnSnakeTail(Fruit fruit)
-        //{
-        //    foreach(Coordinate tailElement in snake.Tail)
-        //    {
-        //        if (tailElement.X == fruit.FruitCoordinate.X && tailElement.Y == fruit.FruitCoordinate.X)
-        //            return true;
-        //    }
-        //    return false;
-        //}
+        private bool FruitRespOnSnakeTail(Fruit fruit)
+        {
+            foreach (Coordinate tailElement in _snake.Tail)
+            {
+                if (tailElement.X == fruit.FruitCoordinate.X && tailElement.Y == fruit.FruitCoordinate.Y)
+                    return true;
+            }
+            return false;
+        }
         private bool SnakeHitWallDie()
         {
-            if (_snake.HeadPosition.X < Board.Width && _snake.HeadPosition.Y < Board.Height + 1 &&
+            if (_snake.HeadPosition.X < _board.Width && _snake.HeadPosition.Y < _board.Height + 1 &&
                 _snake.HeadPosition.X > 0 && _snake.HeadPosition.Y > 0)
-            {
-                _snake.TailLogic();
-            }
-            else
-                return true;
+                return false;
 
-            return false;
+            return true;
         }
         private void SnakeHitWallAppearOpposite()
         {
-            if (_snake.HeadPosition.X == Board.Width)
+            if (_snake.HeadPosition.X == _board.Width)
                 _snake.HeadPosition.X = 1;
             if (_snake.HeadPosition.X == 0)
-                _snake.HeadPosition.X = Board.Width - 1;
-            if (_snake.HeadPosition.Y == Board.Height + 1)
+                _snake.HeadPosition.X = _board.Width - 1;
+            if (_snake.HeadPosition.Y == _board.Height + 1)
                 _snake.HeadPosition.Y = 1;
             if (_snake.HeadPosition.Y == 0)
-                _snake.HeadPosition.Y = Board.Height;
-
-            _snake.TailLogic();
+                _snake.HeadPosition.Y = _board.Height;
         }
         private void GameIsOver()
         {

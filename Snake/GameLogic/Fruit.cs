@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Snake.GameLogic
 {
-    class Fruit
+    public class Fruit
     {
+        Board board = new Board();
         public Coordinate FruitCoordinate { get; private set; }
         public Fruit()
         {
             var rnd = new Random();
-            var x = rnd.Next(1, Board.Width);
-            var y = rnd.Next(2, Board.Height);
+            var x = rnd.Next(1, board.Width);
+            var y = rnd.Next(2, board.Height);
             FruitCoordinate = new Coordinate(x, y);
             Draw();
         }
