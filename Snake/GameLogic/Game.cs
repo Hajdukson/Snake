@@ -73,6 +73,7 @@ namespace Snake.GameLogic
                     GameIsOver();
 
                 Thread.Sleep(10000 / frame);
+                
             }
         }
         //private bool FruitRespOnSnakeTail(Fruit fruit)

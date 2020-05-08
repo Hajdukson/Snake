@@ -34,6 +34,10 @@ namespace Snake.GameLogic
         }
         public void TailLogic()
         {
+            //without following two lines when the snake move in horizontal aligment 
+            //behind him will be drawing verticals strokes
+            Console.SetCursorPosition(Console.BufferWidth - 1, 9);
+            Console.Write(" ");
             Console.SetCursorPosition(HeadPosition.X, HeadPosition.Y);
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write("█");

@@ -21,6 +21,8 @@ namespace Snake.GameLogic
             for (int i = 0; i <= Width; i++)
                 Console.Write("█");
 
+            
+
             Control();
         }
         private static void Control()
